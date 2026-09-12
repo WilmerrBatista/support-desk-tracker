@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Job Pipeline</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+  <header><div><span class="eyebrow">CAREER OPERATIONS</span><h1>Job Pipeline</h1></div><div class="header-actions"><a class="nav-link" href="index.html">Support desk</a><button id="new-job" class="primary">+ Add job</button></div></header>
+  <main>
+    <section id="job-metrics" class="metrics"></section>
+    <div class="pipeline-toolbar"><input id="job-search" type="search" placeholder="Search company or role"><select id="job-status"><option value="">All active stages</option><option>Reviewing</option><option>Ready to Apply</option><option>Applied</option><option>Interview</option><option>Offer</option><option>Closed</option><option>Rejected</option></select><button id="clear-filters" class="secondary">Clear</button></div>
+    <section id="job-list" class="job-grid"></section>
+  </main>
+  <dialog id="job-dialog" class="wide-dialog"><form id="job-form">
+    <div class="dialog-title"><h2>Add a job</h2><button type="button" class="icon" data-close aria-label="Close">×</button></div>
+    <label>Company<input name="company" required></label><label>Role<input name="role" required></label><label>Job URL<input name="source_url" type="url" required></label>
+    <div class="detail-grid"><label>Minimum salary<input name="salary_min" type="number" min="0" placeholder="50000"></label><label>Maximum salary<input name="salary_max" type="number" min="0" placeholder="65000"></label></div>
+    <label>Work arrangement<select name="remote_type"><option>Remote</option><option>Hybrid</option><option>On-site</option></select></label>
+    <div class="check-row"><label><input name="travel_required" type="checkbox"> Travel required</label><label><input name="weekend_required" type="checkbox"> Weekends required</label><label><input name="on_call_required" type="checkbox"> On-call required</label></div>
+    <label>Notes<textarea name="notes" rows="3"></textarea></label><p id="job-error" class="error" role="alert"></p>
+    <div class="actions"><button type="button" class="secondary" data-close>Cancel</button><button class="primary">Screen and save</button></div>
+  </form></dialog>
+  <script src="jobs.js" type="module"></script>
+</body></html>

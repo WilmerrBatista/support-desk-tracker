@@ -11,6 +11,8 @@ A lightweight customer support dashboard for creating, prioritizing, searching, 
 - Track open, waiting, resolved, and urgent ticket metrics
 - Persist records in SQLite without an external database service
 - Responsive interface for desktop and mobile screens
+- Job pipeline that screens out hybrid, travel, weekend, on-call, and sub-$50,000 roles
+- Application stages, duplicate URL protection, and next-action dates
 
 ## Built with
 
@@ -45,6 +47,9 @@ npm test
 | `PATCH` | `/api/tickets/:id` | Update status, priority, or description |
 | `POST` | `/api/tickets/:id/notes` | Add an internal note |
 | `GET` | `/api/metrics` | Retrieve dashboard totals |
+| `GET` | `/api/jobs` | List and search job opportunities |
+| `POST` | `/api/jobs` | Screen and save a job posting |
+| `PATCH` | `/api/jobs/:id` | Update an application stage or follow-up date |
 
 ## Why I built it
 

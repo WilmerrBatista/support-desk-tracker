@@ -3,8 +3,8 @@ import { readFile } from 'node:fs/promises';
 import { extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  addNote, createDatabase, createTicket, getMetrics, getTicket,
-  listTickets, updateTicket, validateTicket
+  addNote, createDatabase, createJob, createTicket, getJobMetrics, getMetrics, getTicket,
+  listJobs, listTickets, updateJob, updateTicket, validateTicket
 } from './db.js';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
@@ -32,6 +32,29 @@ export const server = createServer(async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host}`);
     const ticketMatch = url.pathname.match(/^\/api\/tickets\/(\d+)$/);
     const noteMatch = url.pathname.match(/^\/api\/tickets\/(\d+)\/notes$/);
+    const jobMatch = url.pathname.match(/^\/api\/jobs\/(\d+)$/);
+
+    if (req.method === 'GET' && url.pathname === '/api/jobs') {
+      return send(res, 200, listJobs(db, Object.fromEntries(url.searchParams)));
+    }
+    if (req.method === 'GET' && url.pathname === '/api/job-metrics') {
+      return send(res, 200, getJobMetrics(db));
+    }
+    if (req.method === 'POST' && url.pathname === '/api/jobs') {
+      const input = await jsonBody(req);
+      if (!String(input.company ?? '').trim() || !String(input.role ?? '').trim() || !String(input.source_url ?? '').trim()) {
+        return send(res, 400, { error: 'Company, role, and job URL are required' });
+      }
+      try { return send(res, 201, createJob(db, input)); }
+      catch (error) {
+        if (String(error.message).includes('UNIQUE')) return send(res, 409, { error: 'This job is already tracked' });
+        throw error;
+      }
+    }
+    if (req.method === 'PATCH' && jobMatch) {
+      const job = updateJob(db, Number(jobMatch[1]), await jsonBody(req));
+      return job ? send(res, 200, job) : send(res, 404, { error: 'Job not found' });
+    }
 
     if (req.method === 'GET' && url.pathname === '/api/tickets') {
       return send(res, 200, listTickets(db, Object.fromEntries(url.searchParams)));
