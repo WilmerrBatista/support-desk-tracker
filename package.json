@@ -1,0 +1,15 @@
+{
+  "name": "support-desk-tracker",
+  "version": "1.0.0",
+  "description": "A lightweight support ticket dashboard built with Node.js and SQLite.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22.5"
+  },
+  "license": "MIT"
+}

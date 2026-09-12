@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support Desk</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div><span class="eyebrow">OPERATIONS CONSOLE</span><h1>Support Desk</h1></div>
+    <button id="new-ticket" class="primary">+ New ticket</button>
+  </header>
+  <main>
+    <section id="metrics" class="metrics" aria-label="Ticket metrics"></section>
+    <section class="workspace">
+      <div class="ticket-panel">
+        <div class="toolbar">
+          <input id="search" type="search" placeholder="Search tickets">
+          <select id="status-filter"><option value="">All statuses</option><option>Open</option><option>In Progress</option><option>Waiting</option><option>Resolved</option></select>
+          <select id="priority-filter"><option value="">All priorities</option><option>Urgent</option><option>High</option><option>Medium</option><option>Low</option></select>
+        </div>
+        <div id="ticket-list" class="ticket-list"></div>
+      </div>
+      <aside id="detail" class="detail empty"><p>Select a ticket to view its details.</p></aside>
+    </section>
+  </main>
+
+  <dialog id="ticket-dialog">
+    <form id="ticket-form">
+      <div class="dialog-title"><h2>Create ticket</h2><button type="button" class="icon" data-close aria-label="Close">×</button></div>
+      <label>Customer<input name="customer" required></label>
+      <label>Email<input name="email" type="email" required></label>
+      <label>Subject<input name="subject" required></label>
+      <label>Description<textarea name="description" rows="4" required></textarea></label>
+      <label>Priority<select name="priority"><option>Low</option><option selected>Medium</option><option>High</option><option>Urgent</option></select></label>
+      <p id="form-error" class="error" role="alert"></p>
+      <div class="actions"><button type="button" class="secondary" data-close>Cancel</button><button class="primary">Create ticket</button></div>
+    </form>
+  </dialog>
+  <script src="app.js" type="module"></script>
+</body>
+</html>

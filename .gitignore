@@ -1,0 +1,4 @@
+node_modules/
+support-desk.db
+*.log
+.DS_Store
